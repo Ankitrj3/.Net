@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Foreach";
+
+    string message = ViewBag.Message ?? "";
+    string[] val = message.Split(',');
+    string data = ViewData["Message"] as string;
+    string[] parts = data.Split(',');
+    Dictionary<int, string> VD = new Dictionary<int, string>();
+    int count = 1;
+
+    foreach (var item in parts)
+    {
+        VD.Add(count, item.Trim());
+        count++;
+    }
+}
+
+<div class="text-center">
+    <h1 class="display-4">Foreach Loop</h1>
+
+    @foreach (var item in VD)
+    {
+        <marquee>
+        <p>@item.Key : @item.Value</p>
+        </marquee>
+    }
+</div>

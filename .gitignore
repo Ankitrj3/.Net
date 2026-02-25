@@ -1,0 +1,34 @@
+# Minimal .gitignore for Visual Studio / .NET projects
+# Keep this file focused on required ignores only
+
+# Build folders
+**/bin/
+**/obj/
+
+# Visual Studio workspace & user files
+.vs/
+*.suo
+*.user
+
+# NuGet packages
+*.nupkg
+packages/
+.nuget/packages/
+
+# VS Code workspace settings
+.vscode/
+
+# Publish output
+**/publish/
+
+# Logs and test results
+logs/
+Logs/
+*.log
+TestResults/
+*.trx
+
+# OS generated files
+Thumbs.db
+desktop.ini
+.DS_Store

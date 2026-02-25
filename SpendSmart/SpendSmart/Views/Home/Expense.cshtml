@@ -1,0 +1,27 @@
+﻿@model List<SpendSmart.Models.Expense>
+
+<h2>Expense List</h2>
+
+<a class="btn btn-success mb-3" asp-action="CreateEditExpense">Add Expense</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Value</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var e in Model)
+    {
+        <tr>
+            <td>@e.Id</td>
+            <td>@e.Value</td>
+            <td>@e.Description</td>
+            <td>
+                <a class="btn btn-warning btn-sm" asp-action="CreateEditExpense" asp-route-id="@e.Id">Edit</a>
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@e.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
