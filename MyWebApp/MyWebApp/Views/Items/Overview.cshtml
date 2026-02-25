@@ -1,0 +1,24 @@
+﻿@model MyWebApp.Models.Item
+@{
+    var message = "Hello, World!";
+    var items = new List<string> { "Item1", "Item2", "Item3" };
+
+    var isLoggedIn = true;
+}
+
+<p>This is the name of the item @Model.Name</p>
+<ul>
+    @foreach (var item in items)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+@if (isLoggedIn)
+{
+    <p>Welcome back, user!</p>
+}
+else
+{
+    <p>Please log in to see your items.</p>
+}
