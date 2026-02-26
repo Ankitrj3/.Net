@@ -1,0 +1,66 @@
+@model ProductService.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0"><i class="bi bi-eye"></i> Product Details</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">ID</dt>
+                        <dd class="col-sm-8">@Model.Id</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8"><strong>@Model.Name</strong></dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Description)</dt>
+                        <dd class="col-sm-8">@Model.Description</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Price)</dt>
+                        <dd class="col-sm-8"><span class="text-success fw-bold fs-5">$@Model.Price.ToString("N2")</span></dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Quantity)</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Quantity > 0)
+                            {
+                                <span class="badge bg-success fs-6">@Model.Quantity in stock</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger fs-6">Out of stock</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Category)</dt>
+                        <dd class="col-sm-8"><span class="badge bg-info text-dark fs-6">@Model.Category</span></dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CreatedAt)</dt>
+                        <dd class="col-sm-8">@Model.CreatedAt.ToString("MMMM dd, yyyy hh:mm tt")</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UpdatedAt)</dt>
+                        <dd class="col-sm-8">@Model.UpdatedAt.ToString("MMMM dd, yyyy hh:mm tt")</dd>
+                    </dl>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
