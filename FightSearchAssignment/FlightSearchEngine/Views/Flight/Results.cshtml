@@ -1,0 +1,108 @@
+﻿@model ResultsViewModel
+
+@{
+    var title = Model.IsFlightOnly ? "Flight Search Results" : "Flight + Hotel Search Results";
+    ViewData["Title"] = title;
+}
+
+<!-- Breadcrumb Navigation -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Flight" asp-action="Index">Search</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@title</li>
+    </ol>
+</nav>
+
+<h2>@title</h2>
+<p class="text-muted">@Model.SearchSummary</p>
+
+<div class="mb-3">
+    <a asp-controller="Flight" asp-action="Index" class="btn btn-primary">← Back to Search</a>
+</div>
+
+@if (Model.IsFlightOnly)
+{
+    @if (Model.FlightResults == null || !Model.FlightResults.Any())
+    {
+        <div class="alert alert-warning">
+            <h4>No Flights Found</h4>
+            <p>No flights match your search criteria. Please try different search parameters.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Flight ID</th>
+                        <th>Flight Name</th>
+                        <th>Flight Type</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.FlightResults)
+                    {
+                        <tr>
+                            <td>@item.FlightId</td>
+                            <td>@item.FlightName</td>
+                            <td>@item.FlightType</td>
+                            <td>@item.Source</td>
+                            <td>@item.Destination</td>
+                            <td>₹@item.TotalCost.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info">
+            <strong>Total Results:</strong> @Model.FlightResults.Count flight(s) found
+        </div>
+    }
+}
+else
+{
+    @if (Model.FlightHotelResults == null || !Model.FlightHotelResults.Any())
+    {
+        <div class="alert alert-warning">
+            <h4>No Packages Found</h4>
+            <p>No flight + hotel packages match your search criteria. Please try different search parameters.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Flight ID</th>
+                        <th>Flight Name</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Hotel Name</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.FlightHotelResults)
+                    {
+                        <tr>
+                            <td>@item.FlightId</td>
+                            <td>@item.FlightName</td>
+                            <td>@item.Source</td>
+                            <td>@item.Destination</td>
+                            <td>@item.HotelName</td>
+                            <td>₹@item.TotalCost.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info">
+            <strong>Total Results:</strong> @Model.FlightHotelResults.Count package(s) found
+        </div>
+    }
+}

@@ -1,0 +1,112 @@
+﻿@model SearchViewModel
+
+@{
+    ViewData["Title"] = "Search Flights";
+}
+
+<h2>Search Flights</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error:</strong> @ViewBag.Error
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="searchForm" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div id="sameCityError" class="alert alert-danger d-none">
+                Source and Destination cannot be the same.
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Source" class="form-label">Source</label>
+                <select asp-for="Source" asp-items="Model?.SourceList" class="form-select" id="sourceSelect">
+                    <option value="">-- Select Source --</option>
+                </select>
+                <span asp-validation-for="Source" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Destination" class="form-label">Destination</label>
+                <select asp-for="Destination" asp-items="Model?.DestinationList" class="form-select" id="destinationSelect">
+                    <option value="">-- Select Destination --</option>
+                </select>
+                <span asp-validation-for="Destination" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NumberOfPersons" class="form-label">Number of Persons</label>
+                <input asp-for="NumberOfPersons" type="number" class="form-control" min="1" max="10" />
+                <span asp-validation-for="NumberOfPersons" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-flex gap-2">
+                <button type="submit" asp-controller="Flight" asp-action="SearchFlights"
+                        class="btn btn-success search-btn">
+                    <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    Search Flights Only
+                </button>
+                <button type="submit" asp-controller="Flight" asp-action="SearchFlightsWithHotels"
+                        class="btn btn-warning search-btn">
+                    <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    Search Flight + Hotel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            var sourceSelect = document.getElementById('sourceSelect');
+            var destSelect = document.getElementById('destinationSelect');
+            var sameCityError = document.getElementById('sameCityError');
+            var form = document.getElementById('searchForm');
+
+            function checkSameCity() {
+                if (sourceSelect.value && destSelect.value && sourceSelect.value === destSelect.value) {
+                    sameCityError.classList.remove('d-none');
+                    return true;
+                }
+                sameCityError.classList.add('d-none');
+                return false;
+            }
+
+            sourceSelect.addEventListener('change', checkSameCity);
+            destSelect.addEventListener('change', checkSameCity);
+
+            // Prevent same-city submission on button click
+            var buttons = document.querySelectorAll('.search-btn');
+            buttons.forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    if (checkSameCity()) {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            // Show spinner AFTER form actually submits
+            form.addEventListener('submit', function () {
+                if (checkSameCity()) return;
+
+                buttons.forEach(function (btn) {
+                    var spinner = btn.querySelector('.spinner-border');
+                    spinner.classList.remove('d-none');
+                });
+
+                // Delay disable so the browser sends the formaction first
+                setTimeout(function () {
+                    buttons.forEach(function (btn) {
+                        btn.disabled = true;
+                    });
+                }, 50);
+            });
+        })();
+    </script>
+}
