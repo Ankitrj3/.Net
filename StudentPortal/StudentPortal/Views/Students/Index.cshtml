@@ -1,0 +1,93 @@
+﻿@model List<Student>
+
+@{
+    ViewData["Title"] = "Students";
+    var q = (ViewBag.Query as string) ?? "";
+}
+
+<div class="card">
+    <div class="row">
+        <div>
+            <h2 style="margin:0">Students</h2>
+            <div class="muted small">CRUD + Live Search (AJAX)</div>
+        </div>
+        <a class="btn" asp-action="Create">+ Add Student</a>
+    </div>
+
+    <div style="margin-top:10px" class="row">
+        <input id="q" class="input" style="max-width:420px" placeholder="Search name/email..." value="@q" />
+        <button id="btnSearch" class="btn" type="button">Search</button>
+    </div>
+
+    <div id="liveBox" style="margin-top:10px" class="small muted"></div>
+
+    <table class="tbl">
+        <thead>
+            <tr><th>Id</th><th>Name</th><th>Email</th><th>Status</th><th style="width:200px">Actions</th></tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td>@s.StudentId</td>
+                    <td>@s.FullName</td>
+                    <td>@s.Email</td>
+                    <td>@s.Status</td>
+                    <td>
+                        <a class="btn" asp-action="Edit" asp-route-id="@s.StudentId">Edit</a>
+                        <a class="btn" asp-action="Delete" asp-route-id="@s.StudentId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        const qEl = document.getElementById("q");
+        const box = document.getElementById("liveBox");
+        const tbody = document.getElementById("tblBody");
+        const btn = document.getElementById("btnSearch");
+
+        let t = null;
+
+        function renderRows(items){
+          if(!items || items.length === 0){
+            tbody.innerHTML = `<tr><td colspan="5">No results</td></tr>`;
+            return;
+          }
+          tbody.innerHTML = items.map(s => `
+            <tr>
+              <td>${s.studentId}</td>
+              <td>${s.fullName}</td>
+              <td>${s.email}</td>
+              <td>${s.status}</td>
+              <td>
+                <a class="btn" href="/Students/Edit/${s.studentId}">Edit</a>
+                <a class="btn" href="/Students/Delete/${s.studentId}">Delete</a>
+              </td>
+            </tr>
+          `).join("");
+        }
+
+        async function liveSearch(){
+          const q = qEl.value.trim();
+          if(q.length === 0){
+            box.textContent = "";
+            return;
+          }
+          box.textContent = "Searching...";
+          const res = await fetch(`/Students/Search?q=${encodeURIComponent(q)}`);
+          const data = await res.json();
+          box.textContent = `Found: ${data.length}`;
+          renderRows(data);
+        }
+
+        qEl.addEventListener("keyup", () => {
+          clearTimeout(t);
+          t = setTimeout(liveSearch, 250);
+        });
+        btn.addEventListener("click", liveSearch);
+    </script>
+}

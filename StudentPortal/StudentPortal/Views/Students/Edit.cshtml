@@ -1,0 +1,59 @@
+﻿@model StudentPortal.Models.Student
+
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<div class="card">
+    <h2 style="margin-bottom:10px">Edit Student</h2>
+    <div class="muted small" style="margin-bottom:20px">ID: @Model.StudentId</div>
+
+    <form asp-action="Edit" style="max-width:500px">
+        <div asp-validation-summary="ModelOnly" class="text-danger small" style="margin-bottom:15px"></div>
+        <input type="hidden" asp-for="StudentId" />
+
+        <div style="margin-bottom:15px">
+            <label asp-for="FullName" class="control-label">Full Name</label>
+            <input asp-for="FullName" class="input" placeholder="Enter full name" />
+            <span asp-validation-for="FullName" class="text-danger small"></span>
+        </div>
+
+        <div style="margin-bottom:15px">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="input" placeholder="Enter email" />
+            <span asp-validation-for="Email" class="text-danger small"></span>
+        </div>
+
+        <div style="margin-bottom:15px">
+            <label asp-for="Phone" class="control-label">Phone</label>
+            <input asp-for="Phone" class="input" placeholder="Enter phone number" />
+            <span asp-validation-for="Phone" class="text-danger small"></span>
+        </div>
+
+        <div style="margin-bottom:15px">
+            <label asp-for="Status" class="control-label">Status</label>
+            <input asp-for="Status" class="input" placeholder="Active/Inactive" />
+            <span asp-validation-for="Status" class="text-danger small"></span>
+        </div>
+
+        <div style="margin-bottom:15px">
+            <label asp-for="JoinDate" class="control-label">Join Date</label>
+            <input asp-for="JoinDate" class="input" type="date" />
+            <span asp-validation-for="JoinDate" class="text-danger small"></span>
+        </div>
+
+        <div style="margin-bottom:20px">
+            <label class="control-label">Created At</label>
+            <input asp-for="CreatedAt" class="input" type="datetime-local" disabled />
+        </div>
+
+        <div class="row">
+            <button type="submit" class="btn">Save Changes</button>
+            <a class="btn" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
