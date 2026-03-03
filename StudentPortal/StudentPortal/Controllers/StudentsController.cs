@@ -13,9 +13,9 @@ namespace StudentPortal.Controllers
     public class StudentsController : Controller
     {
         private readonly StudentPortalDbContext _context;
-        private readonly IStudentService _service;
+        private readonly IStudentService _service; // Dependency Injection for the service layer
 
-        public StudentsController(StudentPortalDbContext context, IStudentService service)
+        public StudentsController(StudentPortalDbContext context, IStudentService service)// it is unity framework
         {
             _context = context;
             _service = service;

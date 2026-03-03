@@ -1,0 +1,6 @@
+@LMS.NotificationService_HostAddress = http://localhost:5188
+
+GET {{LMS.NotificationService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

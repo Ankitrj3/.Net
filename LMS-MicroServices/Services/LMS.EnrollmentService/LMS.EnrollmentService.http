@@ -1,0 +1,6 @@
+@LMS.EnrollmentService_HostAddress = http://localhost:5011
+
+GET {{LMS.EnrollmentService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

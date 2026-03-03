@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Services/">
+    <Project Path="Services/LMS.AuthService/LMS.AuthService.csproj" />
+    <Project Path="Services/LMS.ContentService/LMS.ContentService.csproj" />
+    <Project Path="Services/LMS.CourseService/LMS.CourseService.csproj" />
+    <Project Path="Services/LMS.EnrollmentService/LMS.EnrollmentService.csproj" />
+    <Project Path="Services/LMS.NotificationService/LMS.NotificationService.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="Shared/LMS.Shared.Contracts/LMS.Shared.Contracts.csproj" />
+    <Project Path="Shared/LMS.Shared.DTOs/LMS.Shared.DTOs.csproj" />
+    <Project Path="Shared/LMS.Shared.Infrastructure/LMS.Shared.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="LMS.Gateway/LMS.Gateway.csproj" />
+</Solution>
