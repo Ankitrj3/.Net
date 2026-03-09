@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ClassLibDbFirstApproch/ClassLibDbFirstApproch.csproj" />
+  <Project Path="ConsoleAppForGet/ConsoleAppForGet.csproj" Id="f6906198-c816-44b3-aae9-6fb14e72447c" />
+  <Project Path="WebApplication/WebApplication.csproj" Id="39dc0d62-db16-4c2e-9266-8acbff81e2c6" />
+</Solution>
