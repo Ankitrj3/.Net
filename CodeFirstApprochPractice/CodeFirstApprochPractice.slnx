@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CodeFirstApprochPractice/CodeFirstApprochPractice.csproj" />
+  <Project Path="TokenService/TokenService.csproj" Id="4a30d103-386e-4fcc-9d85-74b7532f74a6" />
+</Solution>
